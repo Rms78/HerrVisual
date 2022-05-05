@@ -13,7 +13,7 @@ d3.csv ("ev_mig.csv").then (function (datos){
         .x(d => x(new Date(d.Año, d.Periodo=="Semestre 1" ? 5 :  11, 30)))
         .y(d => y(d.Emigración));
     
-        const linea2 = d3.line()
+    const linea2 = d3.line()
         .x(d => x(new Date(d.Año, d.Periodo=="Semestre 1" ? 5 :  11, 30)))
         .y(d => y(d.Inmigración));
     
@@ -47,12 +47,12 @@ d3.csv ("ev_mig.csv").then (function (datos){
         
         //EJE Y
         var y = d3.scaleLinear()
-            .domain([0,d3.max(datos, function(d) {return +d.Emigración;})])
+            .domain([0,d3.max(datos, function(d) {return +d.Inmigración;})])
             .range([height, 0]);
         elementoSVG.append("g")
             .call(d3.axisLeft(y));
         
-        //Línea
+        //Líneas
         
         elementoSVG.append("path")
             .datum(datos)
@@ -61,7 +61,7 @@ d3.csv ("ev_mig.csv").then (function (datos){
             .attr("stroke-width",1.5)
             .attr("d",linea)
     
-                elementoSVG.append("path")
+        elementoSVG.append("path")
             .datum(datos)
             .attr("fill","none")
             .attr("stroke", "red")
