@@ -116,6 +116,15 @@ d3.csv ("ev_mig.csv").then (function (datosCompletos){
         elementoSVG.append("g")
             .call(d3.axisLeft(y));
     
+        elementoSVG.append("text")
+            .attr("x",10)
+            .attr("y",10)
+            .text("Inmig.(rojo) - Emig.(azul). En miles")
+        elementoSVG.append("text")
+            .attr("x",200)
+            .attr("y",350)
+            .text("Evolución semestral")
+    
 
         
         //Líneas
