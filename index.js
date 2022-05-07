@@ -120,7 +120,7 @@ d3.csv ("ev_mig.csv").then (function (datosCompletos){
     
    //Función para el  tootltip cuando el cursor se posiciona sobre un punto del gráfico mostrando la información 
     var mousemove = function(d){
-        Tooltip.html("<p style='color:#022920;'>Año: " + d.Año + "<br/> <b>" + d.Periodo + "</b>" + d.Emigración + "</p>")
+        Tooltip.html("<p style='color:#022920;'>Año: " + d.Año + "<br/> <b>" + d.Periodo + "</b><br/><b>" + d.Emigración + "</b></p>")
             .style("top", d3.event.pageY + 20 + "px")
             .style("left", d3.event.pageX + 20 + "px")
             .transition()
@@ -129,7 +129,7 @@ d3.csv ("ev_mig.csv").then (function (datosCompletos){
     
      //  2  Función para el  tootltip cuando el cursor se posiciona sobre un punto del gráfico mostrando la información 
    var mousemove2 = function(d){
-        Tooltip2.html("<p style='color:#022920;'>Año: " + d.Año + "<br/> <b>" + d.Periodo + "</b>" + d.Inmigración + "</p>")
+        Tooltip2.html("<p style='color:#022920;'>Año: " + d.Año + "<br/> <b>" + d.Periodo + "</b><br/><b>" + d.Inmigración + "</b></p>")
             .style("top", d3.event.pageY + 20 + "px")
             .style("left", d3.event.pageX + 20 + "px")
             .transition()
@@ -158,18 +158,19 @@ d3.csv ("ev_mig.csv").then (function (datosCompletos){
             .data(datos)
             .enter()
             .append("circle")
+            dots.transition()
+            .duration(3000)
+            .ease(d3.easeBounce)
+            .delay(500)
             .attr ("r",4)
             .attr("cx", d=> x(new Date(d.Año, d.Periodo=="Semestre 1" ? 5 :  11, 30)))
             .attr("cy", d=> y(+d.Emigración))
             .attr("fill","black")        
     
-       dots.transition()
-            .duration(3000)
-            .ease(d3.easeBounce)
-            .delay(500)
+       
 
     
-        dots.on("mouseover", mouseover)
+      dots.on("mouseover", mouseover)
             .on("mousemove", d => { mousemove(d) })
             .on("mouseleave", mouseleave)
          
@@ -178,16 +179,16 @@ d3.csv ("ev_mig.csv").then (function (datosCompletos){
             .data(datos)
             .enter()
             .append("circle")
+            dots2.transition() //aplicamos transición a los puntos
+            .duration(4000)
+            .ease(d3.easeBounce)
+            .delay(500)
             .attr ("r",4)
             .attr("cx", d=> x(new Date(d.Año, d.Periodo=="Semestre 1" ? 5 :  11, 30)))
             .attr("cy", d=> y(+d.Inmigración))
             .attr("fill","brown")
-      
-      dots2.transition()
-            .duration(4000)
-            .ease(d3.easeBounce)
-            .delay(500)
             
+            //a lo guardado tras la transición le revisamos los eventos para pintar los tooltips pertinentes
        dots2.on("mouseover", mouseover2)
             .on("mousemove", d => { mousemove2(d) })
             .on("mouseleave", mouseleave2)
